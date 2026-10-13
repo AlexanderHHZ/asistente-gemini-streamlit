@@ -1,4 +1,4 @@
-
+﻿
 import os
 import streamlit as st
 from dotenv import load_dotenv
@@ -6,16 +6,16 @@ from google import genai
 from google.genai import types
 
 # ============================================================
-# 1. CONFIGURACIÓN DE LA PÁGINA
+# 1. CONFIGURACIÃ“N DE LA PÃGINA
 # ============================================================
 
 st.set_page_config(
     page_title="Astra - Asistente Inteligente",
-    page_icon="🤖",
+    page_icon="ðŸ¤–",
     layout="centered"
 )
 
-st.title("🤖 Asistente Virtual Astra")
+st.title("ðŸ¤– Asistente Virtual Astra")
 st.caption(
     "UAdeO | Sistemas Inteligentes | "
     "Dra. Aiblis Susej Herrera Palafox"
@@ -24,7 +24,7 @@ st.caption(
 st.markdown("---")
 
 # ============================================================
-# 2. CONFIGURACIÓN SEGURA DE LA API KEY
+# 2. CONFIGURACIÃ“N SEGURA DE LA API KEY
 # ============================================================
 
 load_dotenv()
@@ -40,38 +40,38 @@ if not api_key:
 
 if not api_key:
     st.error(
-        "No se encontró GEMINI_API_KEY. "
+        "No se encontrÃ³ GEMINI_API_KEY. "
         "Configura tu archivo .env o los secretos de Streamlit."
     )
     st.stop()
 
 # ============================================================
-# 3. CONFIGURACIÓN DEL MODELO GEMINI
+# 3. CONFIGURACIÃ“N DEL MODELO GEMINI
 # ============================================================
 
-MODELO = "gemini-2.5-flash"
+MODELO = "gemini-2.5-flash-lite"
 
 SYSTEM_INSTRUCTION = """
-Eres Astra, un asistente académico inteligente desarrollado
+Eres Astra, un asistente acadÃ©mico inteligente desarrollado
 para la materia de Sistemas Inteligentes de la UAdeO.
 
 Tus objetivos son:
 
 1. Explicar conceptos de inteligencia artificial.
-2. Ayudar con programación en Python.
+2. Ayudar con programaciÃ³n en Python.
 3. Explicar agentes inteligentes y redes neuronales.
-4. Responder preguntas académicas claramente.
-5. Proporcionar ejemplos prácticos.
+4. Responder preguntas acadÃ©micas claramente.
+5. Proporcionar ejemplos prÃ¡cticos.
 6. Mantener un tono formal, amable y respetuoso.
 
 Si te preguntan por fechas de entrega o actividades,
 indica que deben consultar las instrucciones de la
 Dra. Aiblis Susej Herrera Palafox.
 
-Responde siempre en español, salvo que el usuario
+Responde siempre en espaÃ±ol, salvo que el usuario
 solicite otro idioma.
 
-Utiliza Markdown cuando sea útil.
+Utiliza Markdown cuando sea Ãºtil.
 """
 
 CONFIG_PERSONALIZADA = types.GenerateContentConfig(
@@ -95,12 +95,12 @@ except Exception as e:
     st.stop()
 
 # ============================================================
-# 5. INICIALIZAR MEMORIA DE CONVERSACIÓN
+# 5. INICIALIZAR MEMORIA DE CONVERSACIÃ“N
 # ============================================================
 
 MENSAJE_INICIAL = (
-    "¡Hola! Soy Astra, tu asistente inteligente. "
-    "¿En qué tema de Sistemas Inteligentes puedo ayudarte?"
+    "Â¡Hola! Soy Astra, tu asistente inteligente. "
+    "Â¿En quÃ© tema de Sistemas Inteligentes puedo ayudarte?"
 )
 
 def crear_chat():
@@ -126,12 +126,12 @@ if "messages" not in st.session_state:
 
 with st.sidebar:
 
-    st.header("⚙️ Configuración")
+    st.header("âš™ï¸ ConfiguraciÃ³n")
 
     st.success("Gemini configurado")
 
     st.write("**Asistente:** Astra")
-    st.write("**Modelo:** Gemini 2.5 Flash")
+    st.write("**Modelo:** Gemini 2.5 Flash-Lite")
     st.write("**Materia:** Sistemas Inteligentes")
 
     st.markdown("---")
@@ -139,7 +139,7 @@ with st.sidebar:
     st.subheader("Opciones")
 
     if st.button(
-        "🧹 Limpiar conversación",
+        "ðŸ§¹ Limpiar conversaciÃ³n",
         use_container_width=True
     ):
 
@@ -148,7 +148,7 @@ with st.sidebar:
         st.session_state.messages = [
             {
                 "role": "assistant",
-                "content": "Conversación reiniciada. ¿En qué puedo ayudarte?"
+                "content": "ConversaciÃ³n reiniciada. Â¿En quÃ© puedo ayudarte?"
             }
         ]
 
@@ -175,7 +175,7 @@ for mensaje in st.session_state.messages:
 # ============================================================
 
 pregunta = st.chat_input(
-    "Escribe tu pregunta aquí..."
+    "Escribe tu pregunta aquÃ­..."
 )
 
 if pregunta:
@@ -195,7 +195,7 @@ if pregunta:
     # Generar respuesta
     with st.chat_message("assistant"):
 
-        with st.spinner("Astra está pensando..."):
+        with st.spinner("Astra estÃ¡ pensando..."):
 
             try:
 
@@ -229,36 +229,37 @@ if pregunta:
 
                 if "429" in error:
                     st.error(
-                        "Se alcanzó el límite de solicitudes "
-                        "de Gemini. Intenta más tarde."
+                        "Se alcanzÃ³ el lÃ­mite de solicitudes "
+                        "de Gemini. Intenta mÃ¡s tarde."
                     )
 
                 elif "503" in error:
                     st.error(
-                        "Gemini está temporalmente ocupado. "
+                        "Gemini estÃ¡ temporalmente ocupado. "
                         "Intenta nuevamente."
                     )
 
                 elif "404" in error:
                     st.error(
-                        "El modelo seleccionado no está disponible. "
+                        "El modelo seleccionado no estÃ¡ disponible. "
                         "Verifica el nombre del modelo."
                     )
 
                 else:
                     st.error(
-                        "Ocurrió un error al consultar Gemini. "
-                        "Revisa la terminal para más detalles."
+                        "OcurriÃ³ un error al consultar Gemini. "
+                        "Revisa la terminal para mÃ¡s detalles."
                     )
                     print(f"Error de Gemini: {e}")
 
 # ============================================================
-# 9. PIE DE PÁGINA
+# 9. PIE DE PÃGINA
 # ============================================================
 
 st.markdown("---")
 
 st.caption(
-    "Astra | Aplicación desarrollada con "
+    "Astra | AplicaciÃ³n desarrollada con "
     "Python, Streamlit y Google Gemini"
 )
+
